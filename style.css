@@ -1,0 +1,104 @@
+body {
+    background: linear-gradient(135deg, rgb(34, 34, 88), rgb(95, 95, 204));
+    height: 100vh;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.error {
+    color: rgb(212, 109, 109);
+}
+
+
+#main-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: rgb(49, 46, 80);
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgb(33, 33, 88);
+    width: 400px;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgb(68, 68, 68);
+    padding: 20px;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#input {
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 50%;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#button {
+    background: none;
+    color: white;
+    font-size: 0.7rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#button:hover {
+    cursor: pointer;
+    background-color: rgb(109, 109, 167);
+    transform: translateY(-2px);
+    box-shadow: 1px 1px 3px rgb(68, 68, 68);
+}
+
+#button:active {
+    background-color: rgb(109, 167, 126);
+    transform: translateY(0px);
+    box-shadow: none;
+}
+
+#poke-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgb(68, 68, 68);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.poke-name {
+    font-size: 1.5rem;
+}
+
+.image-container {
+    overflow: hidden;
+    width: 300px;
+    height: 150px;
+    padding-bottom: 30px;
+}
+
+.poke-photo {
+    width: 200px;
+    transform: translate(0px, -20px);
+}
+
+.poke-type {
+    width: 50px;
+    margin-bottom: 10px;
+}
+

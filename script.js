@@ -15,7 +15,7 @@ async function fetchPokemon() {
         for (let item of pokeInfo.types) {
             const response = await fetch(item.type.url);
             const pokeType = await response.json();
-            typeString += `<img src=${pokeType.sprites['generation-iii']['firered-leafgreen']['name_icon']} alt="type icon">`;
+            typeString += `<img class="poke-type" src=${pokeType.sprites['generation-iii']['firered-leafgreen']['name_icon']} alt="type icon">`;
         }
         displayPokemon(pokeInfo, typeString);
     } catch (err) {
@@ -30,7 +30,7 @@ function displayPokemon(pokeInfo, type) {
     const pokeImageURL = pokeInfo.sprites.front_default;
 
     const info = document.getElementById("poke-card");
-    info.innerHTML = `<p>${pokeName}</p><img src=${pokeImageURL} alt="It's Bulbasaur!">${type}`;
+    info.innerHTML = `<p class="poke-name">${pokeName}</p><div class="image-container"><img class="poke-photo" src=${pokeImageURL} alt="It's Bulbasaur!"></div>${type}`;
 }
 
 function displayChoosePoke() {

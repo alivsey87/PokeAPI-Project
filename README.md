@@ -13,37 +13,28 @@
 
 1. [Input](#1-input)
 
-2. [Navigation Bar](#2-navigation-bar)
+2. [Javascript Functions](#2-javascript-functions)
+
+   - [fetchPokemon()](#fetchpokemon)
+   - [displayPokemon()](#displaypokemon)
+   - [displayChoosePoke()](#displaychoosepoke)
+   - [displayError()](#displayerror)
 
 3. [Home](#3-home)
-
-4. [What's New](#4-whats-new)
-
-5. [Deals](#5-deals)
-
-6. [Prices](#6-prices)
-
-7. [Subscribe](#7-subscribe)
-
-8. [Footer](#8-footer)
-
-9. [Style Choices/Bootstrap Components](#9-style-choicesbootstrap-components)
-
-10. [Javascript Functions](#10-javascript-functions)
 
 ---
 ---
 
 ## 1. Input
 
-Upon loading the page, there is a main container that holds the "input container" which has a text input to write the name or id of the Pokemon. It also has a label saying "Choose your Pokemon" and a button to actually retrieve the Pokemon indicated in the text input. I have a placeholder that lets the user know it receives a name or id.
+Upon loading the page, there is a main container that holds the "input container" which has a text input to write the name or id of the Pokemon. It also has a label saying "Choose your Pokemon" and a button (naturally, I called it, "I choose you!") to actually retrieve the Pokemon indicated in the text input. I have a placeholder in the text field that lets the user know it receives a name or id.
 
 ---
 ---
 
 ## 2. Javascript Functions
 
-- fetchPokemon()
+### fetchPokemon()
 
 Where all the magic happens! This is an async function that fetches data from the PokeAPI and sends it to the appropriate functions to be displayed on the page. I'll walk through each bit of code:
 
@@ -60,7 +51,7 @@ if (input.value === "") {
     }
 ```
 
-First, the function checks if the input actually contains a name or id, and if not, it executes the [displayChoosePoke()] functions, which prompts the user to enter an actual Pokemon.
+First, the function checks if the input actually contains a name or id, and if not, it executes the [displayChoosePoke()](#displaychoosepoke) functions, which prompts the user to enter an actual Pokemon.
 
 ```js
 else {
@@ -82,6 +73,9 @@ In order to retrieve the types, I created this for...of loop because not every P
 
 ```js
           let typeString = ``;
+
+
+
           let typeFound = false;
           
           for (const generation in pokeType.sprites) {
@@ -109,9 +103,9 @@ displayPokemon(pokeInfo, typeString);
   }
 ```
 
-Now the pokeInfo object and typeString template strings can be passed to the displayPokemon() to handle the actual html element creation with the relevant data from the API. The `try` block is done, and the `catch` block simply makes any error execute the [displayError()] function.
+Now the pokeInfo object and typeString template strings can be passed to the displayPokemon() to handle the actual html element creation with the relevant data from the API. The `try` block is done, and the `catch` block simply makes any error execute the [displayError()](#displayerror) function.
 
-- displayPokemon()
+### displayPokemon()
 
 This function is passed two arguments, the JSON containing the info generated from the first API fetch, and the template string that contains type info for the Pokemon generated from the second API fetch.
 
@@ -127,183 +121,64 @@ A new string is created using the "name" from the pokeInfo object. The string ju
 
 ```js
 const info = document.getElementById("poke-card");
-  info.innerHTML = `<p class="poke-name">${pokeName}</p><div class="image-container"><img class="poke-photo" src=${pokeImageURL} alt="It's Bulbasaur!"></div>${type}`;
+  info.innerHTML = `<p class="poke-name">${pokeName}</p><div class="image-container"><img class="poke-photo" src=${pokeImageURL} alt="It's a Pokemon!"></div>${type}`;
 ```
 
 I create a reference to the main "poke-card" div called "info" and set the content to a template string which creates a `<p>` containing the name of the Pokemon and an `<img>` containing the image of the Pokemon using the variable created above.
 
----
----
+### displayChoosePoke()
 
-## 3. Home
+This function is called when the user doesn't enter anything in the text input and presses the "I choose you!" button.
 
-For the landing page/home, I used the apple.com layout and created a couple hero sections that advertise the "featured" products. I added a subtle animation to the first hero image just for a cool effect to emphasize the blue "glow" of the speaker:
-
-```css
-animation: blue-glow 4s infinite;
-```
-
-```css
-@keyframes blue-glow {
-    0% {
-        filter:brightness(1) contrast(1) saturate(1);
-    }
-    50% {
-        filter:brightness(1.8) contrast(1.2) saturate(1.2);
-    }
-    0% {
-        filter:brightness(1) contrast(1) saturate(1);
-    }
+```js
+function displayChoosePoke() {
+  const info = document.getElementById("poke-card");
+  info.innerHTML = `<p class="error">Please enter a Pokemon!</p>`;
 }
 ```
 
-Again, using plenty of Bootstrap to handle the responsiveness and structure of the hero sections. I used some z-index and positioning to keep the images in the back and have the headers and buttons stack on top.
+Gets a reference to the "poke-card" div and sets the content to a `<p>` containing the phrase "Please enter a Pokemon!"
 
----
----
+### displayError()
 
-## 4. WHAT'S NEW
-
-This section is styled after the section on apple.com with the grid-style deals and announcements. I used a good amount of CSS styling to get the pictures to align correctly, the text to appear appropriately and (along with Bootstrap) create the gaps similar to those used on the apple.com site.
-
----
----
-
-## 5. DEALS
-
-I used the carousel Bootstrap Component here to present a slideshow of "deals" offered. I had to do a lot of custom CSS styling here to not only get the pictures lined up correctly, but also keep them as responsive as I could (not totally happy with how it came out, but it does the job).
-
----
----
-
-## 6. PRICES
-
-I used a simple Bootstrap table here to include a list of products, including their description and prices.
-
----
----
-
-## 7. SUBSCRIBE
-
-I created a basic form using Bootstrap for users to subscribe to marketing emails. All that is required is a user's first name, last name and email address. Basic validation.
-
----
----
-
-## 8. FOOTER
-
-I added a basic footer with a bit of CSS styling for a box shadow and the name/copyright as a link back to the home section.
-
----
----
-
-## 9. STYLE CHOICES/BOOTSTRAP COMPONENTS
-
-The buttons on the apple.com were very easy to imitate as they look like Bootstrap buttons! For the most part, the styling of the buttons follow:
-
-```html
-<a href="#" class="btn btn-primary rounded-pill">
-```
-
-To replicate the gap/gutter styling, I set many of the sections with the `mt-3` Bootstrap class and used this for the main content gaps:
-
-```html
-<div class="row gx-1 gy-4">
-  ```
-
-I used the "Strawberry" logo next to header text to replicate the way Apple did it for a few of their items. I achieved this with mostly Bootstrap:
-
-```html
-<div class="container-fluid d-flex justify-content-center align-items-center">
-        <img id="hero-two-logo" class="d-inline" src="static/s-logo-white.png" alt="hero 2 header logo">
-        <h2 class="d-inline pt-1 ms-1 mb-0">TECH</h2>
-</div>
-```
-
-I used the following Bootstrap Components:
-
-- Buttons
-- Carousel
-- Collapse
-- Navbar
-- Scrollspy
-
-All images were downloaded from [UnSplash](https://unsplash.com)!
-
----
----
-
-## 10. JavaScript Functions
-
-I created functions that handle subscribing and the cart. I set an array for the subscriber list and an array for the items in the cart:
-
-- Add to sub list
+Executed when a Pokemon is not able to be retrieved either by an error or incorrect name/id entered in
 
 ```js
-const addToSubList = (email) => {
-  if (hasSubscribed(email)) console.log("You already subscribed!");
-  else subList.push(email);
-};
+function displayError() {
+  const info = document.getElementById("poke-card");
+  info.innerHTML = `<p class="error">C'mon...that's not a Pokemon!</p>`;
+}
 ```
 
-This function would take the email provided in the email input as an argument and add it to the `subList` array.
+Sets the content in the "poke-card" div to the error, "C'mon...that's not a Pokemon!" (...well, I thought it was funny lol)
 
-- Has subscribed
+### addEventListener
 
 ```js
-const hasSubscribed = (email) => {
-  if (subList.includes(email)) return true;
-  else return false;
-};
+const button = document.getElementById("button");
+button.addEventListener("click", fetchPokemon);
 ```
 
-This function is at work in adding a new subscriber, first checking if the email passed as an argument exists in the `subList` or not.
+referenced the button to be pressed to start all this magic and added an event listener to it. Upon clicking, the script executes [fetchPokemon()](#fetchpokemon)
 
-- Unsubscribe
+---
+---
 
-```js
-const unSubscribe = (email) => {
-  if (subList.indexOf(email) !== -1) subList.splice(subList.indexOf(email), 1);
-  else console.log("You are not subscribed!");
-};
+
+## 4. Miscellaneous
+
+I did some decent CSS styling to make the page look interesting and the Pokemon to be displayed on a "card". I made the sprite of the image larger and also put in into a container to mask off some of the excess white space taking up the png file. The button has a hover effect added and active effect added just to make it fun to press. All of the containers and inputs have border-radius set to them to make the page look fun and friendly. The background is a linear gradient with blue hue. Since the sprites were pixel art, I wanted the page to have a sort of video game feel. The UI was created with this in mind.
+
+During this project I learned about this:
+
+```css
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
 ```
 
-This function removes an email passed as an argument from the `subList` array. Would have to figure out another function that provides the email from a user clicking some kind of "Unsubscribe" button.
-
-- Add to cart
-
-```js
-const addToCart = (item) => {
-  cart.push(item.price);
-};
-```
-
-This function takes the "price" key from an item object passes as an argument (when customer clicks a button to buy) and adds it to the `cart` array.
-
-- Remove item from cart
-
-```js
-const removeFromCart = (item) => {
-    cart.splice(cart.indexOf(item), 1)
-};
-```
-
-Removes price of item passed as argument (from customer clicking some kind of "delete" button associated with item) from `cart` array.
-
-- Get total price of cart items
-
-```js
-const getTotalPrice = () => {
-  let price = 0;
-  for (const item of cart) {
-    price += item.price;
-  }
-  return price;
-};
-```
-
-Returns sum of price of all items in `cart` array.
+Changing the font of the placeholder text! It looked very dark and I found this great solution.
 
 ---
 
-[back to top](#frameworks--intro-to-js-project-strawberrycom)
+[back to top](#pokeapi-project)

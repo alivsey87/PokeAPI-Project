@@ -10,11 +10,12 @@ async function fetchPokemon() {
         const response = await fetch(pokeAPI);
         const pokeInfo = await response.json();
         
+        let typeString = ``;
+
         for (const item of pokeInfo.types) {
           const response = await fetch(item.type.url);
           const pokeType = await response.json();
           
-          let typeString = ``;
           let typeFound = false;
 
           for (const generation in pokeType.sprites) {
@@ -43,7 +44,7 @@ function displayPokemon(pokeInfo, type) {
   const pokeImageURL = pokeInfo.sprites.front_default;
 
   const info = document.getElementById("poke-card");
-  info.innerHTML = `<p class="poke-name">${pokeName}</p><div class="image-container"><img class="poke-photo" src=${pokeImageURL} alt="It's Bulbasaur!"></div>${type}`;
+  info.innerHTML = `<p class="poke-name">${pokeName}</p><div class="image-container"><img class="poke-photo" src=${pokeImageURL} alt="It's a Pokemon!"></div>${type}`;
 }
 
 function displayChoosePoke() {

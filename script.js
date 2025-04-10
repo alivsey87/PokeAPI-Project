@@ -9,17 +9,18 @@ async function fetchPokemon() {
         const pokeAPI = `https://pokeapi.co/api/v2/pokemon/${input.value.trim()}`;
         const response = await fetch(pokeAPI);
         const pokeInfo = await response.json();
-        let typeString = ``;
-  
+        
         for (const item of pokeInfo.types) {
           const response = await fetch(item.type.url);
           const pokeType = await response.json();
+          
+          let typeString = ``;
           let typeFound = false;
-  
+
           for (const generation in pokeType.sprites) {
             const genObj = pokeType.sprites[generation];
             for (const color in genObj) {
-              if (genObj[color] && genObj[color]["name_icon"] !== null) {
+              if (genObj[color]["name_icon"] !== null) {
                 typeString += `<img class="poke-type" src=${genObj[color]["name_icon"]} alt="type icon">`;
                 typeFound = true;
                 break;
